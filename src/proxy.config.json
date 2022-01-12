@@ -1,0 +1,6 @@
+{
+  "/otmmapi/*": {
+    "target": "http://training-otmm.acheron-tech.com:11090",
+    "secure": false
+  }
+}

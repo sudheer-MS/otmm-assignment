@@ -1,0 +1,92 @@
+<form (submit)="onSearchAssets(searchText)">
+  <mat-form-field class="form-field" appearance="outline">
+    <mat-label> Assets Search </mat-label>
+    <input
+      matInput
+      placeholder="Search For Assets"
+      [formControl]="searchText"
+    />
+  </mat-form-field>
+  <button mat-raised-button color="primary" type="submit">Search</button>
+</form>
+
+<form [formGroup]="uploadForm" (ngSubmit)="onSubmitUpload()">
+  <div class="form-group">
+    <label for="file">File</label>
+    <input
+      formControlName="file"
+      id="file"
+      type="file"
+      class="form-control"
+      (change)="onFileChange($event)"
+    />
+  </div>
+  <button mat-raised-button color="primary" type="submit">Upload</button>
+</form>
+
+<form [formGroup]="folderForm" (submit)="onSubmitCreateFolder()">
+  <div>
+    <mat-form-field class="form-field" appearance="outline">
+      <mat-label> Folder Name </mat-label>
+      <input
+        matInput
+        placeholder="Enter Folder Name"
+        formControlName="folderName"
+      />
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field class="form-field" appearance="outline">
+      <mat-label> Folder Description </mat-label>
+      <input
+        matInput
+        placeholder="Enter Folder Description"
+        formControlName="folderDescription"
+      />
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field class="form-field" appearance="outline">
+      <mat-label> Folder Label </mat-label>
+      <input
+        matInput
+        placeholder="Enter Folder Label"
+        formControlName="folderLabel"
+      />
+    </mat-form-field>
+  </div>
+  <button mat-raised-button color="primary" type="submit">Create Folder</button>
+</form>
+
+<div ngClass="cards">
+  <div class="example-card" *ngFor="let asset of assets">
+    <mat-card
+      ngClass="card"
+      *ngIf="asset.type != 'com.artesia.container.Container'"
+    >
+      <mat-card-header>
+        <mat-card-title>{{
+          asset.rendition_content.thumbnail_content.name
+        }}</mat-card-title>
+      </mat-card-header>
+      <img
+        mat-card-xl-image
+        [src]="asset.rendition_content.thumbnail_content.url"
+        alt="image thumbnail"
+      />
+    </mat-card>
+    <mat-card
+      ngClass="card"
+      *ngIf="asset.type == 'com.artesia.container.Container'"
+    >
+      <mat-card-header>
+        <mat-card-title>{{ asset.name }}</mat-card-title>
+      </mat-card-header>
+      <img
+        mat-card-xl-image
+        src="../assets/folder.png"
+        alt="folder thumbnail"
+      />
+    </mat-card>
+  </div>
+</div>
